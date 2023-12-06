@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rayer</title>
+  <link href="https://fonts.googleapis.com/earlyaccess/cwtexyen.css" rel="stylesheet">
+  <style>
+    body {
+        background-color: cadetblue;
+    }
+
+    p {
+        font-family: cwTeXYen;
+        font-size: 2.5em;
+        color: white;
+        text-shadow: lightblue 0 0 6px, lightblue 0 0 6px, lightblue 0 0 6px, lightblue 0 0 6px, lightblue 0 0 6px;
+    }
+
+    .animated-gif {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0%, -50%);
+      z-index: 9999;
+    }
+
+    .center-container {
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    button {
+        background-color: lightblue;
+        color: white;
+        border-radius: 16px;
+        border: none;
+        font-family: cwTeXYen;
+        font-size: 2.5em;
+    }
+  </style>
+</head>
+<body>
+    <div class="center-container">
+        <p class="shadow">蕾兒已經轉了</p>
+        <p class="shadow"><label id="count">0</label>次</p>
+        <button onclick="counterClick()">按我</button>
+    </div>
+</body>
+
+<script>
+  let count = 0;
+  function counterClick() {
+    playAnimation();
+    playSound();
+    count++;
+    document.querySelector("#count").textContent = count;
+  };
+
+  function playAnimation() {
+    var gif = document.createElement("img");
+    gif.className = "animated-gif";
+    gif.src = "PADORU_Rayer_v1.0.gif";
+    document.body.appendChild(gif);
+    gif.style.display = "block";
+    var position = 0;
+    var animationInterval = setInterval(function() {
+      if (position >= window.innerWidth) {
+        gif.style.display = "none";
+        document.body.removeChild(gif);
+        clearInterval(animationInterval);
+      } else {
+        const speed = 12;
+        position += speed;
+        gif.style.left = position + "px";
+      }
+    }, 20);
+  };
+
+  function playSound() {
+    var audio = document.createElement("audio");
+    audio.volume = 0.2;
+    audio.src = "padorupadoru.mp3";
+    document.body.appendChild(audio);
+    audio.play();
+    audio.addEventListener("ended", function() {
+        this.remove();
+    });
+  };
+</script>
+
+</body>
+</html>
